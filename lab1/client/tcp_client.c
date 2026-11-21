@@ -1,5 +1,6 @@
 #include "tcp_client.h"
 #include <arpa/inet.h>
+#include <errno.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
@@ -22,7 +23,7 @@ int tcp_client_start(const char* server_ip, int port) {
     server.sin_port = htons(port);
 
     if (inet_pton(AF_INET, server_ip, &server.sin_addr) <= 0) {
-        perror("Error converting IP to binary network format");
+        printf("Error converting IP to binary network format");
         close(sockfd);
         return -1;
     }
@@ -42,6 +43,10 @@ int send_all(int serverfd, size_t buffer_size, const void* buffer) {
     while (current_size < buffer_size) {
         ssize_t size = send(serverfd, (const char*)buffer + current_size, buffer_size - current_size, 0);
         if (size == -1) {
+            if (errno == EINTR) { // Interrupt - try again
+                continue;
+            }
+
             perror("Error sending data");
             return -1;
         }

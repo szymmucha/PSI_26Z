@@ -15,6 +15,7 @@ services:
       - server
     networks:
       - z31_network
+    restart: on-failure
 
 networks:
   z31_network:
