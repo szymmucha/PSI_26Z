@@ -44,12 +44,15 @@ int recv_all(int clientfd, size_t expected_size, void* out_buffer) {
 
     while (current_size < expected_size) {
         ssize_t size = recv(clientfd, (char*)out_buffer + current_size, expected_size - current_size, 0);
-        if (size <= 0) {
+        if (size < 0) {
             if (errno == EINTR) { // Interrupt - try again
                 continue;
             }
 
             perror("Error receiving data");
+            return -1;
+        }
+        else if (size == 0) {
             return -1;
         }
 
