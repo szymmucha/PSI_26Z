@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -17,6 +18,7 @@ int tcp_server_start(int port, int listen_queue_size) {
         return -1;
     }
 
+    memset(&server, 0, sizeof(server));
     server.sin_family = AF_INET;
     server.sin_addr.s_addr = INADDR_ANY;
     server.sin_port = htons(port);
@@ -51,7 +53,7 @@ int recv_all(int clientfd, size_t expected_size, void* out_buffer) {
     return 0;
 }
 
-int recv_message(int clientfd, message_t *out_message) {
+int recv_message(int clientfd, message_t* out_message) {
     uint32_t message_size_net; // Network order
     if (recv_all(clientfd, sizeof(message_size_net), &message_size_net) != 0)
         return -1;
