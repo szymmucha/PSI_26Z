@@ -40,7 +40,7 @@ int recv_all(int clientfd, size_t expected_size, void* out_buffer) {
     size_t current_size = 0;
 
     while (current_size < expected_size) {
-        ssize_t size = recv(clientfd, out_buffer + current_size, expected_size - current_size, 0);
+        ssize_t size = recv(clientfd, (char*)out_buffer + current_size, expected_size - current_size, 0);
         if (size <= 0) {
             return -1;
         }
