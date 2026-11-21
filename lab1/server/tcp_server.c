@@ -50,3 +50,23 @@ int recv_all(int clientfd, size_t expected_size, void* out_buffer) {
 
     return 0;
 }
+
+int recv_message(int clientfd, message_t *out_message) {
+    uint32_t message_size_net; // Network order
+    if (recv_all(clientfd, sizeof(message_size_net), &message_size_net) != 0)
+        return -1;
+
+    out_message->size = ntohl(message_size_net);
+
+    out_message->data = malloc(out_message->size);
+    if (!out_message->data) {
+        return -1;
+    }
+
+    if (recv_all(clientfd, out_message->size, out_message->data) != 0) {
+        free(out_message->data);
+        return -1;
+    }
+
+    return 0;
+}
