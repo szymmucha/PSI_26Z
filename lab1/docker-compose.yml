@@ -1,0 +1,20 @@
+services:
+  server:
+    build: ./server
+    image: z31_server
+    container_name: z31_server
+    networks:
+      - z31_network
+
+  client:
+    build: ./client
+    image: z31_client
+    container_name: z31_client
+    depends_on:
+      - server
+    networks:
+      - z31_network
+
+networks:
+  z31_network:
+    external: true
