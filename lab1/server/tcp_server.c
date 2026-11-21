@@ -1,5 +1,8 @@
 #include "tcp_server.h"
+#include <stdlib.h>
+#include <stdint.h>
 #include <stdio.h>
+#include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -20,10 +23,15 @@ int tcp_server_start(int port, int listen_queue_size) {
 
     if (bind(sockfd, (struct sockaddr*)&server, sizeof server) == -1) {
         perror("Error binding socket");
+        close(sockfd);
         return -1;
     }
 
-    listen(sockfd, listen_queue_size);
+    if (listen(sockfd, listen_queue_size) == -1) {
+        perror("Error listening on socket");
+        close(sockfd);
+        return -1;
+    }
 
     return sockfd;
 }
