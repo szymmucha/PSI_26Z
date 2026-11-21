@@ -4,7 +4,8 @@ services:
     image: z31_server
     container_name: z31_server
     networks:
-      - z31_network
+      z31_network:
+        ipv4_address: 172.21.31.2
 
   client:
     build: ./client
