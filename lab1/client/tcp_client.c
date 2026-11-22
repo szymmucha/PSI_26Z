@@ -1,7 +1,6 @@
 #include "tcp_client.h"
 #include <arpa/inet.h>
 #include <errno.h>
-#include <stdint.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -52,20 +51,6 @@ int send_all(int serverfd, size_t buffer_size, const void* buffer) {
         }
 
         current_size += (size_t)size;
-    }
-
-    return 0;
-}
-
-int send_message(int serverfd, const message_t* message) {
-    uint32_t message_size_net = htonl((uint32_t)message->size); // Network order
-
-    if (send_all(serverfd, sizeof(message_size_net), &message_size_net) != 0) {
-        return -1;
-    }
-
-    if (send_all(serverfd, message->size, message->data) != 0) {
-        return -1;
     }
 
     return 0;
