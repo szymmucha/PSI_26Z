@@ -6,7 +6,7 @@
 - Wiktoria Parzych
 
 ## Wersja i data ostatniej edycji
-- Wersja: 1.0.0
+- Wersja: 1.0.1
 - Data ostatniej edycji: 22.11.2026
 
 ## Treść zadania
@@ -14,7 +14,7 @@ Klient TCP wysyła złożoną strukturę danych. Przykładowo: tworzymy w pamię
 
 ## Opis rozwiązania
 
-Poniżej zostało opisane w jaki sposób jest wysyłana poprzez sieć lista jednokierunkowa. Nie ma poniżej opisanego sposobu nawiązania połączenia z serwerem
+Poniżej zostało opisane w jaki sposób jest wysyłana poprzez sieć lista jednokierunkowa. Pominięty został opis tworzenia listy u klienta oraz nawiązywania połączenia.
 
 ### Struktura wysyłanej wiadomości:
 - Pierwsze 4 bajty jest to liczba elementów wysyłanej listy(uint32). Serwer odrzuci wiadomość, jeżeli liczba elementów przekracza 1000
@@ -58,7 +58,6 @@ Poniżej zostało opisane w jaki sposób jest wysyłana poprzez sieć lista jedn
     ```C
     for (Node *n = head; n; n = n->next)
     {
-        fflush(stdout);
         const tmp_int32 = htonl(n->data.int32_data);
         const tmp_uint16 = htons(n->data.uint16_data);
         const tmp_str_len = htons(n->data.str_len);
@@ -244,16 +243,16 @@ Test został przeprowadzany poprzez uruchomienie serwera i klienta poprzez polec
     2026-11-22 21:11:22 Creating element 8
     2026-11-22 21:11:22 Creating element 9
     2026-11-22 21:11:22 Preparing to send list to server
-    2026-11-22 21:11:22 Sending record: int32=1804289383 uint16=9158 str_len=58 str="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-    2026-11-22 21:11:22 Sending record: int32=-1714636915 uint16=56401 str_len=56 str="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
-    2026-11-22 21:11:22 Sending record: int32=719885386 uint16=22764 str_len=10 str="cccccccccc"
-    2026-11-22 21:11:22 Sending record: int32=-1189641421 uint16=22714 str_len=8 str="dddddddd"
-    2026-11-22 21:11:22 Sending record: int32=783368690 uint16=7931 str_len=24 str="eeeeeeeeeeeeeeeeeeeeeeee"
-    2026-11-22 21:11:22 Sending record: int32=-1967513926 uint16=124 str_len=7 str="fffffff"
-    2026-11-22 21:11:22 Sending record: int32=304089172 uint16=10232 str_len=12 str="gggggggggggg"
-    2026-11-22 21:11:22 Sending record: int32=-521595368 uint16=52711 str_len=10 str="hhhhhhhhhh"
-    2026-11-22 21:11:22 Sending record: int32=336465782 uint16=9562 str_len=3 str="iii"
-    2026-11-22 21:11:22 Sending record: int32=-233665123 uint16=49715 str_len=56 str="jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj"
+    2026-11-22 21:11:22 Saving to buffer record: int32=1804289383 uint16=9158 str_len=58 str="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    2026-11-22 21:11:22 Saving to buffer record: int32=-1714636915 uint16=56401 str_len=56 str="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    2026-11-22 21:11:22 Saving to buffer record: int32=719885386 uint16=22764 str_len=10 str="cccccccccc"
+    2026-11-22 21:11:22 Saving to buffer record: int32=-1189641421 uint16=22714 str_len=8 str="dddddddd"
+    2026-11-22 21:11:22 Saving to buffer record: int32=783368690 uint16=7931 str_len=24 str="eeeeeeeeeeeeeeeeeeeeeeee"
+    2026-11-22 21:11:22 Saving to buffer record: int32=-1967513926 uint16=124 str_len=7 str="fffffff"
+    2026-11-22 21:11:22 Saving to buffer record: int32=304089172 uint16=10232 str_len=12 str="gggggggggggg"
+    2026-11-22 21:11:22 Saving to buffer record: int32=-521595368 uint16=52711 str_len=10 str="hhhhhhhhhh"
+    2026-11-22 21:11:22 Saving to buffer record: int32=336465782 uint16=9562 str_len=3 str="iii"
+    2026-11-22 21:11:22 Saving to buffer record: int32=-233665123 uint16=49715 str_len=56 str="jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj"
     2026-11-22 21:11:22 Sending 10 records to server. Buffer size: 328 
     2026-11-22 21:11:22 00 00 00 0A 6B 8B 45 67 23 C6 00 3A 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 99 CC B7 8D DC 51 00 38 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 2A E8 94 4A 58 EC 00 0A 63 63 63 63 63 63 63 63 63 63 B9 17 83 33 58 BA 00 08 64 64 64 64 64 64 64 64 2E B1 41 F2 1E FB 00 18 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 8A BA 1E BA 00 7C 00 07 66 66 66 66 66 66 66 12 20 08 54 27 F8 00 0C 67 67 67 67 67 67 67 67 67 67 67 67 E0 E9 16 18 CD E7 00 0A 68 68 68 68 68 68 68 68 68 68 14 0E 0F 76 25 5A 00 03 69 69 69 F2 12 8D 9D C2 33 00 38 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 6A 
     2026-11-22 21:11:22 Sent list to server

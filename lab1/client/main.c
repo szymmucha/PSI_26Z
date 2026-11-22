@@ -69,7 +69,7 @@ static int send_list(int serverfd, Node *head)
     buf += 4;
     for (Node *n = head; n; n = n->next)
     {
-        printf("Sending record: int32=%d uint16=%d str_len=%d str=\"%.*s\"\n",
+        printf("Saving to buffer record: int32=%d uint16=%d str_len=%d str=\"%.*s\"\n",
                n->data.int32_data, n->data.uint16_data, n->data.str_len,
                (int)n->data.str_len, n->data.str_data);
         fflush(stdout);
