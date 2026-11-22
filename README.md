@@ -6,7 +6,11 @@ Repozytorium jest podzielone na podfoldery, jeden na każde laboratorium.
 
 Laboratorium 1 zawiera wewnątrz siebie dwa folder: `server` i `client`, oraz plik `docker-compose.yml`. Każdy z podfolderów posiada `Dockerfile`, `Makefile` oraz pliki źródłowe.
 
-# Instrukcje
+### Sprawozdanie
+
+Sprawozdanie do laboratorium 1 znajduje się w katalogu [lab1/docs](lab1/docs/). Jest ona zapisana w dwóch formatach [md](lab1/docs/sprawozdanie.md) i [pdf](lab1/docs/sprawozdanie.pdf). Plik pdf jest generowany z pliku md, więc zawierają one identyczną treść.
+
+## Instrukcje
 
 Aby uruchomić program wystarczy wejść do folderu odpowiedniego laboratorium i wpisać:
 
